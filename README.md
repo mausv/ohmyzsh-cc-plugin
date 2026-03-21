@@ -63,11 +63,11 @@ cp claude-code.plugin.zsh ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/claude-code
 
 ### Channels
 
-| Alias | Command | Description |
-|-------|---------|-------------|
-| `clch-tg` | `claude --channels plugin:telegram@...` | Start with Telegram channel |
-| `clch-dc` | `claude --channels plugin:discord@...` | Start with Discord channel |
-| `clch <spec>` | `claude --channels <spec>` | Start with custom channel |
+| Alias | Command | Description | Plugin Install |
+|-------|---------|-------------|----------------|
+| `clch-tg` | `claude --channels plugin:telegram@...` | Start with Telegram channel | `/plugin install telegram@claude-plugins-official` |
+| `clch-dc` | `claude --channels plugin:discord@...` | Start with Discord channel | `/plugin install discord@claude-plugins-official` |
+| `clch <spec>` | `claude --channels <spec>` | Start with custom channel | — |
 
 ## Functions
 
