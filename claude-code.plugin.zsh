@@ -18,46 +18,46 @@ fi
 
 # -- Core aliases --
 
-alias cc='claude'
-alias ccc='claude --continue'
-alias ccr='claude --resume'
-alias ccp='claude -p'
-alias ccv='claude --version'
-alias ccu='claude update'
+alias cl='claude'
+alias clc='claude --continue'
+alias clr='claude --resume'
+alias clp='claude -p'
+alias clv='claude --version'
+alias clu='claude update'
 
 # -- Session aliases --
 
-alias ccn='claude -n'
-alias ccw='claude -w'
-alias ccfork='claude --fork-session'
+alias cln='claude -n'
+alias clw='claude -w'
+alias clfork='claude --fork-session'
 
 # -- Auth aliases --
 
-alias ccas='claude auth status'
-alias ccal='claude auth login'
-alias ccao='claude auth logout'
+alias clas='claude auth status'
+alias clal='claude auth login'
+alias clao='claude auth logout'
 
 # -- Config aliases --
 
-alias ccmcp='claude mcp'
-alias ccag='claude agents'
+alias clmcp='claude mcp'
+alias clag='claude agents'
 
 # -- Model & effort aliases --
 
-function ccm() {
+function clm() {
   local model="${1:-${ZSH_CLAUDE_DEFAULT_MODEL}}"
   if [[ -z "$model" ]]; then
-    print "Usage: ccm <model>  (opus, sonnet, haiku, or full model ID)" >&2
+    print "Usage: clm <model>  (opus, sonnet, haiku, or full model ID)" >&2
     return 1
   fi
   shift 2>/dev/null
   claude --model "$model" "$@"
 }
 
-function cce() {
+function cle() {
   local effort="${1:-${ZSH_CLAUDE_DEFAULT_EFFORT}}"
   if [[ -z "$effort" ]]; then
-    print "Usage: cce <effort>  (low, medium, high, max)" >&2
+    print "Usage: cle <effort>  (low, medium, high, max)" >&2
     return 1
   fi
   shift 2>/dev/null
@@ -66,13 +66,13 @@ function cce() {
 
 # -- Channel aliases --
 
-alias ccch-tg='claude --channels plugin:telegram@claude-plugins-official'
-alias ccch-dc='claude --channels plugin:discord@claude-plugins-official'
+alias clch-tg='claude --channels plugin:telegram@claude-plugins-official'
+alias clch-dc='claude --channels plugin:discord@claude-plugins-official'
 
-function ccch() {
+function clch() {
   if [[ -z "$1" ]]; then
-    print "Usage: ccch <channel-spec> [claude-args...]" >&2
-    print "  e.g. ccch plugin:telegram@claude-plugins-official" >&2
+    print "Usage: clch <channel-spec> [claude-args...]" >&2
+    print "  e.g. clch plugin:telegram@claude-plugins-official" >&2
     return 1
   fi
   local channel="$1"
@@ -84,7 +84,7 @@ function ccch() {
 
 # Directory session: create or resume a session named after the current directory
 # Similar to tmux's tds alias
-function ccds() {
+function clds() {
   local dir="${PWD##*/}"
   [[ "$PWD" == "$HOME" ]] && dir="HOME"
   [[ "$PWD" == "/" ]] && dir="ROOT"
@@ -92,27 +92,27 @@ function ccds() {
 }
 
 # Resume from a PR number
-function ccfp() {
+function clfp() {
   if [[ -z "$1" ]]; then
-    print "Usage: ccfp <pr-number>" >&2
+    print "Usage: clfp <pr-number>" >&2
     return 1
   fi
   claude --from-pr "$1"
 }
 
 # Pipe content to claude in headless mode
-function ccpipe() {
+function clpipe() {
   if [[ -z "$1" ]]; then
-    print "Usage: <cmd> | ccpipe \"prompt\"" >&2
+    print "Usage: <cmd> | clpipe \"prompt\"" >&2
     return 1
   fi
   claude -p "$@"
 }
 
 # Quick headless query with output
-function ccq() {
+function clq() {
   if [[ -z "$1" ]]; then
-    print "Usage: ccq \"question\"" >&2
+    print "Usage: clq \"question\"" >&2
     return 1
   fi
   claude -p "$@"
@@ -163,16 +163,16 @@ function _claude_code_permission_modes() {
   _describe 'permission-mode' modes
 }
 
-function _ccm() {
+function _clm() {
   _arguments '1:model:_claude_code_models' '*::args:'
 }
 
-function _cce() {
+function _cle() {
   _arguments '1:effort:_claude_code_efforts' '*::args:'
 }
 
-compdef _ccm ccm
-compdef _cce cce
+compdef _clm clm
+compdef _cle cle
 
 # -- Auto-continue on shell start --
 
