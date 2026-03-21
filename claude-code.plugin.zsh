@@ -109,15 +109,6 @@ function clpipe() {
   claude -p "$@"
 }
 
-# Quick headless query with output
-function clq() {
-  if [[ -z "$1" ]]; then
-    print "Usage: clq \"question\"" >&2
-    return 1
-  fi
-  claude -p "$@"
-}
-
 # Start claude with default config variables applied
 function _claude_with_defaults() {
   local -a args

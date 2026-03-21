@@ -78,7 +78,7 @@ cp claude-code.plugin.zsh ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/claude-code
 | `clds` | Directory session — create/resume a session named after `$PWD` | `cd my-project && clds` |
 | `clfp <pr>` | Resume sessions linked to a GitHub PR | `clfp 123` |
 | `clpipe "prompt"` | Pipe stdin to Claude in headless mode | `cat log.txt \| clpipe "analyze errors"` |
-| `clq "question"` | Quick headless query | `clq "what does this error mean?"` |
+
 
 ## Configuration Variables
 
