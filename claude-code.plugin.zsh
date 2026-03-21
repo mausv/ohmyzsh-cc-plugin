@@ -100,15 +100,6 @@ function clfp() {
   claude --from-pr "$1"
 }
 
-# Pipe content to claude in headless mode
-function clpipe() {
-  if [[ -z "$1" ]]; then
-    print "Usage: <cmd> | clpipe \"prompt\"" >&2
-    return 1
-  fi
-  claude -p "$@"
-}
-
 # Start claude with default config variables applied
 function _claude_with_defaults() {
   local -a args
