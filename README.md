@@ -1,28 +1,38 @@
-# claude-code
+# Claude Code Plugin
 
-Oh My Zsh plugin for [Claude Code](https://github.com/anthropics/claude-code) — aliases, helpers, and tab completion for the Claude Code CLI.
+The `claude-code` plugin adds several aliases and helper functions for [Claude Code](https://github.com/anthropics/claude-code), the CLI for Claude.
 
-## Installation
-
-### Oh My Zsh (custom plugin)
-
-```bash
-git clone https://github.com/mausv/ohmyzsh-cc-plugin ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/claude-code
-```
-
-Then add `claude-code` to your plugins in `~/.zshrc`:
+To use it, add `claude-code` to the plugins array of your zshrc file:
 
 ```zsh
 plugins=(... claude-code)
 ```
 
-### Manual
+## Configuration Variables
 
-Copy `claude-code.plugin.zsh` to your custom plugins directory:
+Set these in your `~/.zshrc` **before** the plugins line:
 
-```bash
-mkdir -p ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/claude-code
-cp claude-code.plugin.zsh ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/claude-code/
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ZSH_CLAUDE_DEFAULT_MODEL` | _(unset)_ | Default model applied to all session aliases (e.g., `opus`, `sonnet`, `haiku`, or a full model ID) |
+| `ZSH_CLAUDE_DEFAULT_EFFORT` | _(unset)_ | Default reasoning effort level (`low`, `medium`, `high`, `max`) |
+| `ZSH_CLAUDE_DEFAULT_PERMISSION_MODE` | _(unset)_ | Default permission mode (`acceptEdits`, `bypassPermissions`, `default`, `dontAsk`, `plan`, `auto`) |
+| `ZSH_CLAUDE_AUTO_CONTINUE` | `false` | Auto-resume last conversation on new shell start |
+
+> **How defaults work:** All session-starting aliases (`cl`, `clc`, `clr`, `cln`, `clw`, etc.) automatically
+> inject your configured defaults. If you also pass a flag explicitly (e.g., `cl --model opus`), the explicit
+> flag takes precedence since it appears after the defaults on the command line.
+
+### Example
+
+```zsh
+# ~/.zshrc
+ZSH_CLAUDE_DEFAULT_MODEL="sonnet"
+ZSH_CLAUDE_DEFAULT_EFFORT="high"
+ZSH_CLAUDE_DEFAULT_PERMISSION_MODE="plan"
+ZSH_CLAUDE_AUTO_CONTINUE=false
+
+plugins=(... claude-code)
 ```
 
 ## Aliases
@@ -73,41 +83,12 @@ cp claude-code.plugin.zsh ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/claude-code
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `clm <model>` | Start with a specific model | `clm opus` |
-| `cle <effort>` | Start with a specific effort level | `cle high` |
-| `clds` | Directory session — create/resume a session named after `$PWD` | `cd my-project && clds` |
+| `clm <model>` | Start with a specific model (also applies effort and permission-mode defaults) | `clm opus` |
+| `cle <effort>` | Start with a specific effort level (also applies model and permission-mode defaults) | `cle high` |
+| `clds` | Directory session — create or resume a session named after `$PWD` | `clds` |
 | `clfp <pr>` | Resume sessions linked to a GitHub PR | `clfp 123` |
-
-
-
-## Configuration Variables
-
-Set these in your `~/.zshrc` before the plugins line:
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ZSH_CLAUDE_DEFAULT_MODEL` | (unset) | Default model for `clm` and `_claude_with_defaults` |
-| `ZSH_CLAUDE_DEFAULT_EFFORT` | (unset) | Default effort level |
-| `ZSH_CLAUDE_DEFAULT_PERMISSION_MODE` | (unset) | Default permission mode (plan/auto/manual) |
-| `ZSH_CLAUDE_AUTO_CONTINUE` | `false` | Auto-continue last session when opening a new shell |
-
-### Example configuration
-
-```zsh
-# ~/.zshrc
-ZSH_CLAUDE_DEFAULT_MODEL="sonnet"
-ZSH_CLAUDE_DEFAULT_EFFORT="high"
-ZSH_CLAUDE_AUTO_CONTINUE=false
-
-plugins=(... claude-code)
-```
 
 ## Tab Completion
 
-- `clm [TAB]` — completes model names (opus, sonnet, haiku)
-- `cle [TAB]` — completes effort levels (low, medium, high, max)
-
-## Requirements
-
-- [Claude Code](https://github.com/anthropics/claude-code) CLI installed (`npm install -g @anthropic-ai/claude-code`)
-- [Oh My Zsh](https://ohmyz.sh/) (or compatible zsh plugin manager)
+- `clm [TAB]` — completes model names (`opus`, `sonnet`, `haiku`)
+- `cle [TAB]` — completes effort levels (`low`, `medium`, `high`, `max`)
